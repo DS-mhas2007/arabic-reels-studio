@@ -51,7 +51,11 @@ async function validate() {
       checks.push({ name: "FFprobe validation", passed: false, detail: "invalid probe output" });
     }
   } else {
-    checks.push({ name: "FFprobe validation", passed: false, detail: ffprobe.stderr.trim() });
+    checks.push({
+      name: "FFprobe validation",
+      passed: false,
+      detail: ffprobe.error?.message ?? ffprobe.stderr?.trim() ?? `ffprobe exited with status ${ffprobe.status}`,
+    });
   }
 
   const audioProbe = spawnSync("ffprobe", [
@@ -83,7 +87,10 @@ async function validate() {
     checks.push({
       name: "Narration audio stream",
       passed: false,
-      detail: audioProbe.stderr.trim(),
+      detail:
+        audioProbe.error?.message ??
+        audioProbe.stderr?.trim() ??
+        `ffprobe exited with status ${audioProbe.status}`,
     });
   }
 
