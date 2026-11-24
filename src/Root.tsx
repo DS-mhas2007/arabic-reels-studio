@@ -1,9 +1,5 @@
-import { MyComposition } from "./Composition";
+import { ArabicReelsStudio } from "./Composition";
 
 export const RemotionRoot: React.FC = () => {
-  return (
-    <>
-      <MyComposition />
-    </>
-  );
+  return <ArabicReelsStudio />;
 };
